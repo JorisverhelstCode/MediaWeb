@@ -11,7 +11,7 @@ namespace MediaWeb.Domain
         public string Title { get; set; }
         public string Url { get; set; }
         public string Host { get; set; }
-        public List<String> Guests { get; set; }
+        public string Guest { get; set; }
 
         [Key]
         public int Id { get; set; }
