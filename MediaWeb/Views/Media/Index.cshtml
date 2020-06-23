@@ -1,0 +1,20 @@
+﻿@model MediaWeb.Models.MediaIndexViewModel
+
+<div>
+    <h1>
+        Welkom @User.Identity.Name!
+    </h1>
+    <br />
+
+    @if (User.IsInRole("Guest"))
+    {
+        <span>
+            Wordt nu gebruiker en maak je eigen media collectie!
+        </span>
+    } else
+    {
+        <span>
+
+        </span>
+    }
+</div>
