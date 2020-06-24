@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Models.Film
 {
-    public class FilmDetailViewModel
+    public class FilmEditViewModel
     {
         public string Title { get; set; }
         public int Id { get; set; }
