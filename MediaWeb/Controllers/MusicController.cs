@@ -38,7 +38,7 @@ namespace MediaWeb.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
-            FilmEditViewModel model = new FilmEditViewModel
+            MusicEditViewModel model = new MusicEditViewModel
             {
                 Id = filmFromDb.Id,
                 Producer = filmFromDb.Producer,
@@ -78,7 +78,7 @@ namespace MediaWeb.Controllers
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
 
-            return View(new FilmDeleteViewModel() { Id = filmFromDb.Id, Title = filmFromDb.Title });
+            return View(new MusicDeleteViewModel() { Id = filmFromDb.Id, Title = filmFromDb.Title });
         }
 
         [HttpPost]

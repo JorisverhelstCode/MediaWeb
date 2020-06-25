@@ -1,0 +1,9 @@
+﻿@model MediaWeb.Models.Music.MusicDeleteViewModel
+
+<p>Are you sure you want to delete @Model.Title?</p>
+
+<form asp-action="ConfirmDelete" asp-controller="Film" method="post" asp-route-id="@Model.Id">
+    <button class="btn btn-danger" type="submit">Delete</button>
+</form>
+
+<a asp-controller="Media" asp-action="Index">Go back</a>
