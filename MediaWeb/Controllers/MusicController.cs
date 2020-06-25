@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
-using MediaWeb.Models.Film;
+using MediaWeb.Models.Music;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MediaWeb.Controllers
 {
-    public class FilmController : Controller
+    public class MusicController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
 
-        public FilmController(MediaDbContext context)
+        public MusicController(MediaDbContext context)
         {
             _mediaDbContext = context;
         }
@@ -23,7 +22,7 @@ namespace MediaWeb.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
-            FilmDetailViewModel model = new FilmDetailViewModel
+            MusicDetailViewModel model = new MusicDetailViewModel
             {
                 Id = filmFromDb.Id,
                 Producer = filmFromDb.Producer,
@@ -34,7 +33,7 @@ namespace MediaWeb.Controllers
 
             return View(model);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
