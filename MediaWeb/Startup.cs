@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MediaWeb.Database;
+using MediaWeb.Domain;
 
 namespace MediaWeb
 {
@@ -31,7 +32,7 @@ namespace MediaWeb
             services.AddDbContext<MediaDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<MediaWebUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MediaDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
+using MediaWeb.Models.Film;
 using MediaWeb.Models.Music;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,6 @@ namespace MediaWeb.Controllers
             MusicDetailViewModel model = new MusicDetailViewModel
             {
                 Id = filmFromDb.Id,
-                Producer = filmFromDb.Producer,
                 ReleaseDate = filmFromDb.ReleaseDate,
                 Title = filmFromDb.Title,
                 Url = filmFromDb.Url
@@ -41,7 +41,6 @@ namespace MediaWeb.Controllers
             MusicEditViewModel model = new MusicEditViewModel
             {
                 Id = filmFromDb.Id,
-                Producer = filmFromDb.Producer,
                 ReleaseDate = filmFromDb.ReleaseDate,
                 Title = filmFromDb.Title,
                 Url = filmFromDb.Url
@@ -78,7 +77,7 @@ namespace MediaWeb.Controllers
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
 
-            return View(new MusicDeleteViewModel() { Id = filmFromDb.Id, Title = filmFromDb.Title });
+            return View(new MusicDeleteViewModel() { Id = filmFromDb.Id});
         }
 
         [HttpPost]
