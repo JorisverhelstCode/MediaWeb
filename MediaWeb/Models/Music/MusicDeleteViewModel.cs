@@ -8,7 +8,7 @@ namespace MediaWeb.Models.Music
     public class MusicDeleteViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
 
     }
 }
