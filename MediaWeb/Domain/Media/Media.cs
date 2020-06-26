@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Domain.Media
 {
-    public class MediaListItem
+    public abstract class MediaListItem
     {
         [Key]
         public int Id { get; set; }
