@@ -1,7 +1,24 @@
-﻿
-@{
-    ViewData["Title"] = "Detail";
-}
+﻿@model MediaWeb.Models.PodCast.PodCastDetailViewModel
 
-<h1>Detail</h1>
+<h1>@Model.Title</h1>
+
+<div>
+    <bold>Link:</bold>
+    <a href="@Model.Url">@Model.Url</a>
+    <br />
+    <bold>Host</bold>
+    <span>
+        @Model.Host
+    </span>
+    <br />
+    <bold>Guest</bold>
+    <span>
+        @Model.Guest
+    </span>
+    <br />
+    <bold>Release date</bold>
+    <span>
+        @Model.ReleaseDate
+    </span>
+</div>
 

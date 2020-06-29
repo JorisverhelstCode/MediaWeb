@@ -12,5 +12,6 @@ namespace MediaWeb.Models.PodCast
         public string Url { get; set; }
         public string Host { get; set; }
         public string Guest { get; set; }
+        public DateTime ReleaseDate { get; set; }
     }
 }
