@@ -21,13 +21,15 @@ namespace MediaWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
-            PodCast filmFromDb = await _mediaDbContext.PodCasts.FindAsync(id);
+            PodCast podCastFromDb = await _mediaDbContext.PodCasts.FindAsync(id);
             PodCastDetailViewModel model = new PodCastDetailViewModel
             {
-                Id = filmFromDb.Id,
-                ReleaseDate = filmFromDb.ReleaseDate,
-                Title = filmFromDb.Title,
-                Url = filmFromDb.Url
+                Id = podCastFromDb.Id,
+                ReleaseDate = podCastFromDb.ReleaseDate,
+                Title = podCastFromDb.Title,
+                Url = podCastFromDb.Url,
+                Guest = podCastFromDb.Guest,
+                Host = podCastFromDb.Host
             };
 
             return View(model);
@@ -36,33 +38,34 @@ namespace MediaWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
-            MusicEditViewModel model = new MusicEditViewModel
+            PodCast podCastFromDb = await _mediaDbContext.PodCasts.FindAsync(id);
+            PodCastEditViewmodel model = new PodCastEditViewmodel
             {
-                Id = filmFromDb.Id,
-                ReleaseDate = filmFromDb.ReleaseDate,
-                Title = filmFromDb.Title,
-                Url = filmFromDb.Url
+                Id = podCastFromDb.Id,
+                ReleaseDate = podCastFromDb.ReleaseDate,
+                Title = podCastFromDb.Title,
+                Url = podCastFromDb.Url,
+                Guest = podCastFromDb.Guest
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, FilmEditViewModel vm)
+        public async Task<IActionResult> Edit(int id, PodCastEditViewmodel vm)
         {
             if (!TryValidateModel(vm))
             {
                 return View(vm);
             }
 
-            Film domainFilm = await _mediaDbContext.Films.FindAsync(id);
+            PodCast domainFilm = await _mediaDbContext.PodCasts.FindAsync(id);
 
             domainFilm.Title = vm.Title;
-            domainFilm.Description = vm.Description;
+            domainFilm.Guest = vm.Guest;
             domainFilm.ReleaseDate = vm.ReleaseDate;
             domainFilm.Url = vm.Url;
-            domainFilm.Producer = vm.Producer;
+            domainFilm.Host = vm.Host;
 
             _mediaDbContext.Update(domainFilm);
 
@@ -76,7 +79,7 @@ namespace MediaWeb.Controllers
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
 
-            return View(new MusicDeleteViewModel() { Id = filmFromDb.Id });
+            return View(new PodCast() { Id = filmFromDb.Id });
         }
 
         [HttpPost]
