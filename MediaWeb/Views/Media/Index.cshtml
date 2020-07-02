@@ -1,4 +1,4 @@
-﻿@model MediaWeb.Models.MediaIndexViewModel
+﻿@model List<MediaWeb.Models.MediaIndexViewModel>
 
 <div>
     <h1>
@@ -16,9 +16,55 @@
         <span>
             Bekijk je collectie!
         </span>
-        @for (int i = 0; i < 10; i++) //needs to be changed later
-        {
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var media in Model)
+                {
+                    <tr>
+                        <td>@media.Title</td>
+                        <td>
+                            <a asp-controller="Media" asp-action="Detail" asp-route-id="@media.Id">Detail</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Media" asp-action="Edit" asp-route-id="@media.Id">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Media" asp-action="Delete" asp-route-id="@media.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+             </tbody>
+        </table>
+    }
+    <br />
+    <div>
+        <a asp-controller="Media" asp-action="Create">Search for a new item to add to your collection</a>
+    </div>
+    <br />
+    @if (!User.IsInRole("Guest"))
+    {
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        }
+                </tbody>
+            </table>
+        </div>
     }
 </div>

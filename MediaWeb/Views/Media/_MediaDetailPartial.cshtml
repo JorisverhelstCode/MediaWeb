@@ -1,0 +1,13 @@
+﻿@model MediaWeb.Models.Media.MediaDetailViewModel
+
+<h1>@Model.Title</h1>
+
+<div>
+    <bold>Link:</bold>
+    <a href="@Model.Url">@Model.Url</a>
+    <br />
+    <bold>Release date</bold>
+    <span>
+        @Model.ReleaseDate
+    </span>
+</div>

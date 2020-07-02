@@ -1,18 +1,14 @@
 ﻿@model MediaWeb.Models.Film.FilmDetailViewModel
 
-<h1>@Model.Title</h1>
+<partial name="_MediaDetailPartial" model="@Model">
 
 <div>
-    <bold>Link:</bold>
-    <a href="@Model.Url">@Model.Url</a>
-    <br />
-    <bold>Producer</bold>
     <span>
         @Model.Producer
     </span>
     <br />
-    <bold>Release date</bold>
+    <bold>Description</bold>
     <span>
-        @Model.Producer
+        @Model.Description
     </span>
 </div>
