@@ -9,7 +9,10 @@ namespace MediaWeb.Domain
 {
     public class MediaWebUser : IdentityUser
     {
-        public PlayList PlayList { get; set; }
-        public IEnumerable<MediaListItem> MediaList { get; set; }
+        public List<PlayList> PlayLists { get; set; }
+        public List<Music> MusicList { get; set; }
+        public List<PodCast> PodCastList { get; set; }
+        public List<Serie> SerieList { get; set; }
+        public List<Film> FilmList { get; set; }
     }
 }

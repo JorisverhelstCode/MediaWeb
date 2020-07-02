@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Domain
 {
-    public class PodCast : MediaListItem
+    public class PodCast : Media.Media
     {
         public string Host { get; set; }
         public string Guest { get; set; }

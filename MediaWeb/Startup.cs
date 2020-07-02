@@ -34,6 +34,7 @@ namespace MediaWeb
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<MediaWebUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MediaDbContext>();
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

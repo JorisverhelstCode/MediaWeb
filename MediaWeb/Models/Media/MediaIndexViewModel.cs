@@ -1,14 +1,14 @@
-﻿using System;
+﻿using MediaWeb.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MediaWeb.Models
+namespace MediaWeb.Models.Media
 {
     public class MediaIndexViewModel
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public int MyProperty { get; set; }
+        public List<MediaIndexListViewModel> MediaList { get; set; }
+        public List<PlayList> PlayLists { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Domain
 {
-    public class Film : MediaListItem
+    public class Film : Media.Media
     {
         public string Producer { get; set; }
         public string Description { get; set; }

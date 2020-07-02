@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MediaWeb.Domain
+namespace MediaWeb.Models
 {
-    public class PlayList
+    public class MediaIndexListViewModel
     {
         public int Id { get; set; }
-        public List<Music> MusicList { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Type { get; set; }
     }
 }

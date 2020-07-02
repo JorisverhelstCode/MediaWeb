@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Domain
 {
-    public class Music : MediaListItem
+    public class Music : Media.Media
     {
         public string Artist { get; set; }
         public string Genre { get; set; }
