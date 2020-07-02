@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Models.Media.Serie;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaWeb.Controllers
 {
+    [Authorize]
     public class SerieController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
@@ -19,6 +21,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
             Serie serieFromDb = await _mediaDbContext.Series.FindAsync(id);

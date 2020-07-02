@@ -6,10 +6,12 @@ using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Models.Film;
 using MediaWeb.Models.Music;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaWeb.Controllers
 {
+    [Authorize]
     public class MusicController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
@@ -20,6 +22,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);

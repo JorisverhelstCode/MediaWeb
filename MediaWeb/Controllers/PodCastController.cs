@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Models.PodCast;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaWeb.Controllers
@@ -36,6 +37,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             PodCast podCastFromDb = await _mediaDbContext.PodCasts.FindAsync(id);
@@ -52,6 +54,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, PodCastEditViewmodel vm)
         {
             if (!TryValidateModel(vm))
@@ -75,6 +78,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             PodCast podCastFromDb = await _mediaDbContext.PodCasts.FindAsync(id);
@@ -83,6 +87,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             PodCast podCastToDelete = await _mediaDbContext.PodCasts.FindAsync(id);

@@ -12,6 +12,7 @@ using MediaWeb.Models.Media.Film;
 using MediaWeb.Models.Media.Music;
 using MediaWeb.Models.Media.PodCast;
 using MediaWeb.Models.Media.Serie;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace MediaWeb.Controllers
 {
+    [Authorize]
     public class MediaController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
@@ -33,6 +35,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var user = (MediaWebUser)await _userManager.GetUserAsync(HttpContext.User);
@@ -86,6 +89,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Detail(MediaIndexListViewModel model)
         {
             switch (model.Type)

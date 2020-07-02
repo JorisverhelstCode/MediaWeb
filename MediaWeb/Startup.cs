@@ -40,7 +40,7 @@ namespace MediaWeb
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
-            });
+            }).AddXmlSerializerFormatters();
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();

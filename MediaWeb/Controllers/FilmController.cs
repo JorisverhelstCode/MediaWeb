@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Models.Film;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaWeb.Controllers
 {
+    [Authorize]
     public class FilmController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
@@ -20,6 +22,7 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
             Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
