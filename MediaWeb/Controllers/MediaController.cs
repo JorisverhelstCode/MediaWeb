@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
@@ -16,21 +14,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace MediaWeb.Controllers
 {
     [Authorize]
     public class MediaController : Controller
     {
-        private readonly MediaDbContext _mediaDbContext;
-        private readonly HttpContextAccessor _accessor;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public MediaController(MediaDbContext context, HttpContextAccessor accessor, UserManager<IdentityUser> userManager)
+        public MediaController(UserManager<IdentityUser> userManager)
         {
-            _mediaDbContext = context;
-            _accessor = accessor;
             _userManager = userManager;
         }
 
