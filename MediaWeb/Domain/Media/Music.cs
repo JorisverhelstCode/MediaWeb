@@ -10,7 +10,6 @@ namespace MediaWeb.Domain
     public class Music : MediaListItem
     {
         public string Artist { get; set; }
-        public Genre Genre { get; set; }
-        public int GenreId { get; set; }
+        public string Genre { get; set; }
     }
 }
