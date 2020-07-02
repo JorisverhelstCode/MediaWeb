@@ -77,16 +77,16 @@ namespace MediaWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            Film filmFromDb = await _mediaDbContext.Films.FindAsync(id);
+            PodCast podCastFromDb = await _mediaDbContext.PodCasts.FindAsync(id);
 
-            return View(new PodCast() { Id = filmFromDb.Id });
+            return View(new PodCast() { Id = podCastFromDb.Id });
         }
 
         [HttpPost]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
-            Film filmToDelete = await _mediaDbContext.Films.FindAsync(id);
-            _mediaDbContext.Films.Remove(filmToDelete);
+            PodCast podCastToDelete = await _mediaDbContext.PodCasts.FindAsync(id);
+            _mediaDbContext.PodCasts.Remove(podCastToDelete);
             await _mediaDbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
