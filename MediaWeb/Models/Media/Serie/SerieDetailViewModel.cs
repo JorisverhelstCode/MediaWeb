@@ -1,12 +1,11 @@
-﻿using MediaWeb.Domain.Media;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MediaWeb.Domain
+namespace MediaWeb.Models.Media.Serie
 {
-    public class Serie : Media.Media
+    public class SerieDetailViewModel : MediaDetailViewModel
     {
         public int Episode { get; set; }
         public string Producer { get; set; }
