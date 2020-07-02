@@ -10,7 +10,5 @@ namespace MediaWeb.Models
     {
         [Required]
         public string RoleName { get; set; }
-
-
     }
 }

@@ -1,2 +1,35 @@
 ﻿@model MediaWeb.Models.PodCast.PodCastEditViewmodel
 
+<form asp-controller="PodCast" asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input class="form-control" asp-for="Title" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Url"></label>
+        <input class="form-control" asp-for="Url" />
+        <span class="text-danger" asp-validation-for="Url"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReleaseDate"></label>
+        <input class="form-control" asp-for="ReleaseDate" />
+        <span class="text-danger" asp-validation-for="ReleaseDate"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Host"></label>
+        <input class="form-control" asp-for="Host" />
+        <span class="text-danger" asp-validation-for="Host"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Guest"></label>
+        <input class="form-control" asp-for="Guest" />
+        <span class="text-danger" asp-validation-for="Guest"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Update movie</button>
+</form>
