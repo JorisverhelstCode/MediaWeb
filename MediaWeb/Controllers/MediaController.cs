@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
@@ -32,52 +33,37 @@ namespace MediaWeb.Controllers
         public async Task<IActionResult> Index()
         {
             MediaIndexViewModel model = new MediaIndexViewModel();
-            /*var user = (MediaWebUser)await _userManager.GetUserAsync(HttpContext.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
             model.MediaList = new List<MediaIndexListViewModel>();
-            foreach (var music in user.MusicList)
-            {
-                var item = new MusicIndexListViewModel
+            model.MediaList.AddRange(user.MusicList
+                .Select(music => new MusicIndexListViewModel
                 {
                     Id = music.Id,
                     Title = music.Title,
                     Type = "Music"
-                };
-                model.MediaList.Add(item);
-            }
-            foreach (var podCast in user.PodCastList)
-            {
-                var item = new PodCastIndexListViewModel
+                }));
+            model.MediaList.AddRange(user.PodCastList.
+                Select(podcast => new PodCastIndexListViewModel
                 {
-                    Id = podCast.Id,
-                    Title = podCast.Title,
+                    Id = podcast.Id,
+                    Title = podcast.Title,
                     Type = "PodCast"
-                };
-                model.MediaList.Add(item);
-            }
-            foreach (var film in user.FilmList)
-            {
-                var item = new FilmIndexListViewModel
+                }));
+            model.MediaList.AddRange(user.FilmList
+                .Select(film => new FilmIndexListViewModel
                 {
                     Id = film.Id,
                     Title = film.Title,
                     Type = "Film"
-                };
-                model.MediaList.Add(item);
-            }
-            foreach (var serie in user.SerieList)
-            {
-                var item = new SerieIndexListViewModel
+                }));
+            model.MediaList.AddRange(user.SerieList
+                .Select(serie => new SerieIndexListViewModel
                 {
                     Id = serie.Id,
                     Title = serie.Title,
                     Type = "Serie"
-                };
-                model.MediaList.Add(item);
-            }
-            foreach (var playList in user.PlayLists)
-            {
-                model.PlayLists.Add(playList);
-            }*/
+                }));
+            model.PlayLists = user.PlayLists;
             return View(model);
         }
 
