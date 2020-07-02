@@ -9,6 +9,7 @@ using MediaWeb.Models;
 
 namespace MediaWeb.Controllers
 {
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

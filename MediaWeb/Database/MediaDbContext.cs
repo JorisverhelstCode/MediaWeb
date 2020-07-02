@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Database
 {
-    public class MediaDbContext : IdentityDbContext
+    public class MediaDbContext : IdentityDbContext<MediaWebUser>
     {
         public MediaDbContext(DbContextOptions<MediaDbContext> options) : base(options)
         {

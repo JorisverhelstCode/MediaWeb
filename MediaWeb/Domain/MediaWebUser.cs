@@ -14,5 +14,13 @@ namespace MediaWeb.Domain
         public List<PodCast> PodCastList { get; set; }
         public List<Serie> SerieList { get; set; }
         public List<Film> FilmList { get; set; }
+        public MediaWebUser()
+        {
+            MusicList = new List<Music>();
+            PodCastList = new List<PodCast>();
+            SerieList = new List<Serie>();
+            FilmList = new List<Film>();
+            PlayLists = new List<PlayList>();
+        }
     }
 }

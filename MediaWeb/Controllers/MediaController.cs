@@ -20,9 +20,9 @@ namespace MediaWeb.Controllers
     [Authorize]
     public class MediaController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MediaWebUser> _userManager;
 
-        public MediaController(UserManager<IdentityUser> userManager)
+        public MediaController(UserManager<MediaWebUser> userManager)
         {
             _userManager = userManager;
         }
@@ -31,8 +31,8 @@ namespace MediaWeb.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var user = (MediaWebUser)await _userManager.GetUserAsync(HttpContext.User);
             MediaIndexViewModel model = new MediaIndexViewModel();
+            /*var user = (MediaWebUser)await _userManager.GetUserAsync(HttpContext.User);
             model.MediaList = new List<MediaIndexListViewModel>();
             foreach (var music in user.MusicList)
             {
@@ -77,7 +77,7 @@ namespace MediaWeb.Controllers
             foreach (var playList in user.PlayLists)
             {
                 model.PlayLists.Add(playList);
-            }
+            }*/
             return View(model);
         }
 
