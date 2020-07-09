@@ -114,5 +114,37 @@ namespace MediaWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            SerieCreateViewModel model = new SerieCreateViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(SerieCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Serie toBeAddedSerie = new Serie
+                {
+                    Episode = model.Episode,
+                    ReleaseDate = model.ReleaseDate,
+                    Producer = model.Producer,
+                    Title = model.Title,
+                    Url = model.Url
+                };
+
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                user.SerieList.Add(toBeAddedSerie);
+                _mediaDbContext.Series.Add(toBeAddedSerie);
+                await _mediaDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
     }
 }

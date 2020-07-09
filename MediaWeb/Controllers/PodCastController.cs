@@ -114,5 +114,37 @@ namespace MediaWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            PodCastCreateViewModel model = new PodCastCreateViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(PodCastCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                PodCast toBeAddedPodCast = new PodCast
+                {
+                    Guest = model.Guest,
+                    ReleaseDate = model.ReleaseDate,
+                    Host = model.Host,
+                    Title = model.Title,
+                    Url = model.Url
+                };
+
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                user.PodCastList.Add(toBeAddedPodCast);
+                _mediaDbContext.PodCasts.Add(toBeAddedPodCast);
+                await _mediaDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
     }
 }

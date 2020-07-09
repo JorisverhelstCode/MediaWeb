@@ -112,5 +112,37 @@ namespace MediaWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            MusicCreateViewModel model = new MusicCreateViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(MusicCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Music toBeAddedMusic = new Music
+                {
+                    Artist = model.Artist,
+                    ReleaseDate = model.ReleaseDate,
+                    Genre = model.Genre,
+                    Title = model.Title,
+                    Url = model.Url
+                };
+
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                user.MusicList.Add(toBeAddedMusic);
+                _mediaDbContext.MusicList.Add(toBeAddedMusic);
+                await _mediaDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
     }
 }

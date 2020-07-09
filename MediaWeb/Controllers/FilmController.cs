@@ -116,10 +116,10 @@ namespace MediaWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create(int id)
+        public IActionResult Create()
         {
-            new FilmCreateViewModel();
-            return View();
+            FilmCreateViewModel model = new FilmCreateViewModel();
+            return View(model);
         }
 
         [HttpPost]
