@@ -30,6 +30,7 @@ namespace MediaWeb.Controllers
         {
             FilmIndexViewModel model = new FilmIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
+            _mediaDbContext.Films.Where(x => x.);
             model.Films = new List<FilmIndexListViewModel>();
             model.Films.AddRange(user.FilmList
                 .Select(film => new FilmIndexListViewModel
