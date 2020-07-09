@@ -16,11 +16,22 @@
         {
             <span>
                 Bekijk je collectie!
+                <br />
             </span>
+            <table>
+                <thead>
+                    <tr>
+                        <th><a asp-controller="Film" asp-action="Index">Mijn films</a></th>
+                        <th><a asp-controller="Music" asp-action="Index">Mijn muziek</a></th>
+                        <th><a asp-controller="PodCast" asp-action="Index">Mijn podcasts</a></th>
+                        <th><a asp-controller="Serie" asp-action="Index">Mijn series</a></th>
+                    </tr>
+                </thead>
+            </table>
             @if (Model.MediaList.Count() == 0)
             {
                 <span>
-                    Het ziet er naar uit dat je nog geen collectie hebt :o
+                    Het ziet er naar uit dat je nog geen collectie hebt :o <br />
                     Maak er snel eentje aan!
                 </span>
             }

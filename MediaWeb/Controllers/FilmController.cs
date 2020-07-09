@@ -137,8 +137,11 @@ namespace MediaWeb.Controllers
                     Url = model.Url
                 };
 
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                user.FilmList.Add(toBeAddedFilm);
                 _mediaDbContext.Films.Add(toBeAddedFilm);
                 await _mediaDbContext.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
             
