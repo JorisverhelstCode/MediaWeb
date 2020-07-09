@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
+using MediaWeb.Models.Media.PodCast;
 using MediaWeb.Models.PodCast;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaWeb.Controllers
@@ -14,10 +16,28 @@ namespace MediaWeb.Controllers
     public class PodCastController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
+        private readonly UserManager<MediaWebUser> _userManager;
 
-        public PodCastController(MediaDbContext context)
+        public PodCastController(MediaDbContext context, UserManager<MediaWebUser> userManager)
         {
             _mediaDbContext = context;
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            PodCastIndexViewModel model = new PodCastIndexViewModel();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            model.PodCasts = new List<PodCastIndexListViewModel>();
+            model.PodCasts.AddRange(user.FilmList
+                .Select(film => new PodCastIndexListViewModel
+                {
+                    Id = film.Id,
+                    Title = film.Title,
+                    Type = "Film"
+                }));
+            return View(model);
         }
 
         [HttpGet]

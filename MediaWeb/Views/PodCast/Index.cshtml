@@ -1,8 +1,8 @@
-﻿@model MediaWeb.Models.Media.Film.FilmIndexViewModel
+﻿@model MediaWeb.Models.Media.PodCast.PodCastIndexViewModel
 
 <div>
     <h1>
-        Hier een overzicht van al je films
+        Hier een overzicht van al je podcasts
     </h1>
 </div>
 
@@ -10,10 +10,10 @@
     <span>
         Bekijk je collectie!
     </span>
-    @if (Model.Films.Count() == 0)
+    @if (Model.PodCasts.Count() == 0)
     {
         <span>
-            Het ziet er naar uit dat je nog geen films hebt in je collectie!
+            Het ziet er naar uit dat je nog geen podcasts hebt in je collectie!
             Maak er snel eentje aan!
         </span>
     }
@@ -29,18 +29,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var media in Model.Films)
+                @foreach (var media in Model.PodCasts)
                 {
                     <tr>
                         <td>@media.Title</td>
                         <td>
-                            <a asp-controller="Film" asp-action="Detail" asp-route-model="@media">Detail</a>
+                            <a asp-controller="PodCast" asp-action="Detail" asp-route-model="@media">Detail</a>
                         </td>
                         <td>
-                            <a asp-controller="Film" asp-action="Edit" asp-route-model="@media">Edit</a>
+                            <a asp-controller="PodCast" asp-action="Edit" asp-route-model="@media">Edit</a>
                         </td>
                         <td>
-                            <a asp-controller="Film" asp-action="Delete" asp-route-model="@media">Delete</a>
+                            <a asp-controller="PodCast" asp-action="Delete" asp-route-model="@media">Delete</a>
                         </td>
                     </tr>
                 }
@@ -50,9 +50,9 @@
 </div>
 
 <div>
-    <a asp-controller="Film" asp-action="Create">Maak een nieuwe film aan</a>
+    <a asp-controller="Podast" asp-action="Create">Maak een nieuwe podcast aan</a>
 </div>
 
 <div>
-    <a asp-controller="Film" asp-action="Search">Zoek naar een al bestaande film op onze website</a>
+    <a asp-controller="Podast" asp-action="Search">Zoek naar een al bestaande podcast op onze website</a>
 </div>

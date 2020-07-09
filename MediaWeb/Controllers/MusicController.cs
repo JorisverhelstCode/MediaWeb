@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Models.Film;
+using MediaWeb.Models.Media.Music;
 using MediaWeb.Models.Music;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaWeb.Controllers
@@ -15,10 +17,28 @@ namespace MediaWeb.Controllers
     public class MusicController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
+        private readonly UserManager<MediaWebUser> _userManager;
 
-        public MusicController(MediaDbContext context)
+        public MusicController(MediaDbContext context, UserManager<MediaWebUser> userManager)
         {
             _mediaDbContext = context;
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            MusicIndexViewModel model = new MusicIndexViewModel();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            model.Music = new List<MusicIndexListViewModel>();
+            model.Music.AddRange(user.FilmList
+                .Select(film => new MusicIndexListViewModel
+                {
+                    Id = film.Id,
+                    Title = film.Title,
+                    Type = "Film"
+                }));
+            return View(model);
         }
 
         [HttpGet]
