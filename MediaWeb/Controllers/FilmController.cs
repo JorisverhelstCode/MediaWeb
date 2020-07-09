@@ -96,13 +96,34 @@ namespace MediaWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Create(int id)
+        [HttpGet]
+        public IActionResult Create(int id)
         {
-            new FilmCreateViewModel()
-            {
-
-            };
+            new FilmCreateViewModel();
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(FilmCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Film toBeAddedFilm = new Film
+                {
+                    Description = model.Description,
+                    ReleaseDate = model.ReleaseDate,
+                    Genre = model.Genre,
+                    Producer = model.Producer,
+                    Title = model.Title,
+                    Url = model.Url
+                };
+
+                _mediaDbContext.Films.Add(toBeAddedFilm);
+                await _mediaDbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            
+            return View(model);
         }
     }
 }

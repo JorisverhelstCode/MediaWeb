@@ -124,8 +124,7 @@ namespace MediaWeb.Controllers
 
         public IActionResult Create()
         {
-            MediaCreateViewModel model = new MediaCreateViewModel();
-            return View(model);
+            return View();
         }
     }
 }
