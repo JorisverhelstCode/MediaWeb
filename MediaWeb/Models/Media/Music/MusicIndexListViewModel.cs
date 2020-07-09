@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Models.Media.Music
 {
-    public class MusicIndexViewModel
+    public class MusicIndexListViewModel : MediaIndexListViewModel
     {
-        public List<MusicIndexListViewModel> Music { get; set; }
+
     }
 }

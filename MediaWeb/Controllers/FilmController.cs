@@ -7,6 +7,7 @@ using MediaWeb.Domain;
 using MediaWeb.Models.Film;
 using MediaWeb.Models.Media.Film;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,10 +17,28 @@ namespace MediaWeb.Controllers
     public class FilmController : Controller
     {
         private readonly MediaDbContext _mediaDbContext;
+        private readonly UserManager<MediaWebUser> _userManager;
 
-        public FilmController(MediaDbContext context)
+        public FilmController(MediaDbContext context, UserManager<MediaWebUser> userManager)
         {
             _mediaDbContext = context;
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            FilmIndexViewModel model = new FilmIndexViewModel();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            model.Films = new List<FilmIndexListViewModel>();
+            model.Films.AddRange(user.FilmList
+                .Select(film => new FilmIndexListViewModel
+                {
+                    Id = film.Id,
+                    Title = film.Title,
+                    Type = "Film"
+                }));
+            return View();
         }
 
         [HttpGet]

@@ -1,0 +1,54 @@
+﻿@model MediaWeb.Models.Media.Film.FilmIndexViewModel
+
+<div>
+    <h1>
+        Hier een overzicht van al je films
+    </h1>
+</div>
+
+<div>
+    <span>
+        Bekijk je collectie!
+    </span>
+    @if (Model.Films.Count() == 0)
+    {
+        <span>
+            Het ziet er naar uit dat je nog geen films hebt in je collectie!
+            Maak er snel eentje aan!
+        </span>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var media in Model.Films)
+                {
+                    <tr>
+                        <td>@media.Title</td>
+                        <td>
+                            <a asp-controller="Film" asp-action="Detail" asp-route-model="@media">Detail</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Film" asp-action="Edit" asp-route-model="@media">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Film" asp-action="Delete" asp-route-model="@media">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<div>
+    <a asp-controller="Film" asp-action="Create">Maak een nieuwe film aan</a>
+</div>
