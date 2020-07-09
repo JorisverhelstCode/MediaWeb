@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Models.Film;
+using MediaWeb.Models.Media.Film;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -93,6 +94,15 @@ namespace MediaWeb.Controllers
             await _mediaDbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Create(int id)
+        {
+            new FilmCreateViewModel()
+            {
+
+            };
+            return View();
         }
     }
 }

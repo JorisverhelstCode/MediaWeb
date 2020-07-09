@@ -121,5 +121,11 @@ namespace MediaWeb.Controllers
                     return View(model);
             }
         }
+
+        public IActionResult Create()
+        {
+            MediaCreateViewModel model = new MediaCreateViewModel();
+            return View(model);
+        }
     }
 }
