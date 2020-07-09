@@ -38,7 +38,7 @@ namespace MediaWeb.Controllers
                     Title = film.Title,
                     Type = "Film"
                 }));
-            return View();
+            return View(model);
         }
 
         [HttpGet]

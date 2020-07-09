@@ -8,5 +8,10 @@ namespace MediaWeb.Models.Media.PodCast
     public class PodCastIndexViewModel
     {
         public List<PodCastIndexListViewModel> PodCasts { get; set; }
+
+        public PodCastIndexViewModel()
+        {
+            PodCasts = new List<PodCastIndexListViewModel>();
+        }
     }
 }

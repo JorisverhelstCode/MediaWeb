@@ -8,5 +8,10 @@ namespace MediaWeb.Models.Media.Film
     public class FilmIndexViewModel
     {
         public List<FilmIndexListViewModel> Films { get; set; }
+
+        public FilmIndexViewModel()
+        {
+            Films = new List<FilmIndexListViewModel>();
+        }
     }
 }
