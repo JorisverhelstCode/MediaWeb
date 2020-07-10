@@ -8,8 +8,8 @@ namespace MediaWeb.Domain.Media
     public class UserMusic
     {
         public MediaWebUser User { get; set; }
-        public string UserID { get; set; }
+        public string UserId { get; set; }
         public Music Music { get; set; }
-        public int MusicID { get; set; }
+        public int MusicId { get; set; }
     }
 }

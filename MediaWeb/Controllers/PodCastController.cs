@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
+using MediaWeb.Domain.Media;
 using MediaWeb.Models.Media.PodCast;
 using MediaWeb.Models.PodCast;
 using Microsoft.AspNetCore.Authorization;
@@ -29,13 +30,18 @@ namespace MediaWeb.Controllers
         {
             PodCastIndexViewModel model = new PodCastIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
+            var userPodCasts = _mediaDbContext.UserPodCasts.Where(x => x.UserId == user.Id);
+            var PodCastJoin =
+                from podCast in _mediaDbContext.PodCasts
+                join userPodCast in userPodCasts on podCast.Id equals userPodCast.PodCastId into podcasts
+                select new { Id = podCast.Id, Title = podCast.Title };
             model.PodCasts = new List<PodCastIndexListViewModel>();
-            model.PodCasts.AddRange(user.FilmList
-                .Select(film => new PodCastIndexListViewModel
+            model.PodCasts.AddRange(PodCastJoin
+                .Select(podCast => new PodCastIndexListViewModel
                 {
-                    Id = film.Id,
-                    Title = film.Title,
-                    Type = "Film"
+                    Id = podCast.Id,
+                    Title = podCast.Title,
+                    Type = "PodCast"
                 }));
             return View(model);
         }
@@ -137,8 +143,16 @@ namespace MediaWeb.Controllers
                 };
 
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                user.PodCastList.Add(toBeAddedPodCast);
                 _mediaDbContext.PodCasts.Add(toBeAddedPodCast);
+                await _mediaDbContext.SaveChangesAsync();
+                UserPodCast newConnection = new UserPodCast
+                {
+                    User = user,
+                    UserId = user.Id,
+                    PodCast = toBeAddedPodCast,
+                    PodCastId = toBeAddedPodCast.Id
+                };
+                _mediaDbContext.UserPodCasts.Add(newConnection);
                 await _mediaDbContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");

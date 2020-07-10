@@ -8,8 +8,8 @@ namespace MediaWeb.Domain.Media
     public class UserSerie
     {
         public MediaWebUser User { get; set; }
-        public string UserID { get; set; }
+        public string UserId { get; set; }
         public Serie Serie { get; set; }
-        public int SerieID { get; set; }
+        public int SerieId { get; set; }
     }
 }

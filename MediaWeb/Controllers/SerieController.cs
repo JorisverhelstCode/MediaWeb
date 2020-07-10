@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediaWeb.Database;
 using MediaWeb.Domain;
+using MediaWeb.Domain.Media;
 using MediaWeb.Models.Media.Serie;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,13 +29,18 @@ namespace MediaWeb.Controllers
         {
             SerieIndexViewModel model = new SerieIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
+            var userSeries = _mediaDbContext.UserSeries.Where(x => x.UserId == user.Id);
+            var FilmJoin =
+                from Serie in _mediaDbContext.Series
+                join userSerie in userSeries on Serie.Id equals userSerie.SerieId into films
+                select new { Id = Serie.Id, Title = Serie.Title };
             model.Series = new List<SerieIndexListViewModel>();
-            model.Series.AddRange(user.FilmList
-                .Select(film => new SerieIndexListViewModel
+            model.Series.AddRange(FilmJoin
+                .Select(serie => new SerieIndexListViewModel
                 {
-                    Id = film.Id,
-                    Title = film.Title,
-                    Type = "Film"
+                    Id = serie.Id,
+                    Title = serie.Title,
+                    Type = "Serie"
                 }));
             return View(model);
         }
@@ -137,8 +143,16 @@ namespace MediaWeb.Controllers
                 };
 
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                user.SerieList.Add(toBeAddedSerie);
                 _mediaDbContext.Series.Add(toBeAddedSerie);
+                await _mediaDbContext.SaveChangesAsync();
+                UserSerie newConnection = new UserSerie
+                {
+                    User = user,
+                    UserId = user.Id,
+                    Serie = toBeAddedSerie,
+                    SerieId = toBeAddedSerie.Id
+                };
+                _mediaDbContext.UserSeries.Add(newConnection);
                 await _mediaDbContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");
