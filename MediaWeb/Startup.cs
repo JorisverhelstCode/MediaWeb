@@ -16,6 +16,7 @@ using MediaWeb.Database;
 using MediaWeb.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using MediaWeb.Services;
 
 namespace MediaWeb
 {
@@ -36,6 +37,7 @@ namespace MediaWeb
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<MediaWebUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MediaDbContext>();
+            services.AddTransient<IUserDbService, UserDbService>();
             ////services.AddMvc(options =>
             ////{
             ////    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();

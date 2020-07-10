@@ -30,12 +30,12 @@ namespace MediaWeb.Controllers
             SerieIndexViewModel model = new SerieIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var userSeries = _mediaDbContext.UserSeries.Where(x => x.UserId == user.Id);
-            var FilmJoin =
+            var SerieJoin =
                 from Serie in _mediaDbContext.Series
                 join userSerie in userSeries on Serie.Id equals userSerie.SerieId into films
                 select new { Id = Serie.Id, Title = Serie.Title };
             model.Series = new List<SerieIndexListViewModel>();
-            model.Series.AddRange(FilmJoin
+            model.Series.AddRange(SerieJoin
                 .Select(serie => new SerieIndexListViewModel
                 {
                     Id = serie.Id,
