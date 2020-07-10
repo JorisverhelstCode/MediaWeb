@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace MediaWeb.Domain.Media
 {
-    public class UserFilm
+    public class UserPodCast
     {
         public MediaWebUser User { get; set; }
         public string UserID { get; set; }
-        public Film Film { get; set; }
-        public int FilmID { get; set; }
+        public PodCast PodCast { get; set; }
+        public int PodCastID { get; set; }
     }
 }

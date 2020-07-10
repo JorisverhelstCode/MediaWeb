@@ -1,4 +1,5 @@
 ﻿using MediaWeb.Domain;
+using MediaWeb.Domain.Media;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,5 +25,9 @@ namespace MediaWeb.Database
         public DbSet<Music> MusicList { get; set; }
         public DbSet<PodCast> PodCasts { get; set; }
         public DbSet<Serie> Series { get; set; }
+        public DbSet<UserFilm> UserFilms { get; set; }
+        public DbSet<UserSerie> UserSeries { get; set; }
+        public DbSet<UserPodCast> UserPodCasts { get; set; }
+        public DbSet<UserMusic> UserMusicList { get; set; }
     }
 }
