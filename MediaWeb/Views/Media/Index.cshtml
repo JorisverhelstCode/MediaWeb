@@ -1,93 +1,83 @@
 ﻿@model MediaWeb.Models.Media.MediaIndexViewModel
 
+<div>
+    <h1>
+        Welkom @User.Identity.Name!
+    </h1>
+    <br />
+    <span>
+        Bekijk je collectie!
+        <br />
+    </span>
+    <table class="table">
+        <thead>
+            <tr><th><a asp-controller="Film" asp-action="Index">Mijn films</a></th></tr>
+            <tr><th><a asp-controller="Music" asp-action="Index">Mijn muziek</a></th></tr>
+            <tr><th><a asp-controller="PodCast" asp-action="Index">Mijn podcasts</a></th></tr>
+            <tr><th><a asp-controller="Serie" asp-action="Index">Mijn series</a></th></tr>
+        </thead>
+    </table>
+    @if (Model.MediaList.Count() == 0)
+    {
+        <span>
+            Het ziet er naar uit dat je nog geen collectie hebt :o <br />
+            Maak er snel eentje aan!
+        </span>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var media in Model.MediaList)
+                {
+                    <tr>
+                        <td>@media.Title</td>
+                        <td>
+                            <a asp-controller="Media" asp-action="Detail" asp-route-media="@media">Detail</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Media" asp-action="Edit" asp-route-media="@media">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Media" asp-action="Delete" asp-route-model="@media">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <br />
     <div>
-        <h1>
-            Welkom @User.Identity.Name!
-        </h1>
-        <br />
-
-        @if (User.IsInRole("Guest"))
-        {
-            <span>
-                Wordt nu gebruiker en maak je eigen media collectie!
-            </span>
-        }
-        else
-        {
-            <span>
-                Bekijk je collectie!
-                <br />
-            </span>
-            <table class="table">
-                <thead>
-                    <tr><th><a asp-controller="Film" asp-action="Index">Mijn films</a></th></tr>
-                    <tr><th><a asp-controller="Music" asp-action="Index">Mijn muziek</a></th></tr>
-                    <tr><th><a asp-controller="PodCast" asp-action="Index">Mijn podcasts</a></th></tr>
-                    <tr><th><a asp-controller="Serie" asp-action="Index">Mijn series</a></th></tr>
-                </thead>
-            </table>
-            @if (Model.MediaList.Count() == 0)
-            {
-                <span>
-                    Het ziet er naar uit dat je nog geen collectie hebt :o <br />
-                    Maak er snel eentje aan!
-                </span>
-            }
-            else
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var media in Model.MediaList)
-                        {
-                            <tr>
-                                <td>@media.Title</td>
-                                <td>
-                                    <a asp-controller="Media" asp-action="Detail" asp-route-media="@media">Detail</a>
-                                </td>
-                                <td>
-                                    <a asp-controller="Media" asp-action="Edit" asp-route-media="@media">Edit</a>
-                                </td>
-                                <td>
-                                    <a asp-controller="Media" asp-action="Delete" asp-route-model="@media">Delete</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-        }
-        <br />
-        <div>
-            <a asp-controller="Media" asp-action="Create">Zoek naar een nieuw item</a>
-        </div>
-        <br />
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.PlayLists)
-                        {
-                            <tr>
-                                <td>@item.Name</td>
-                                <td><a asp-controller="PlayList" asp-action="Play" asp-route-id="@item.Id">Play</a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <a asp-controller="Media" asp-action="Create">Zoek naar een nieuw item</a>
     </div>
+    <br />
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PlayLists)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td><a asp-controller="PlayList" asp-action="Play" asp-route-id="@item.Id">Play</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

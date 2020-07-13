@@ -1,7 +1,14 @@
-﻿
-@{
-    ViewData["Title"] = "Detail";
-}
+﻿@model MediaWeb.Models.Media.Serie.SerieDetailViewModel
 
-<h1>Detail</h1>
+<partial name="_MediaDetailPartial" model="@Model">
 
+    <div>
+        <span>
+            @Model.Producer
+        </span>
+        <br />
+        <bold>Description</bold>
+        <span>
+            @Model.Episode
+        </span>
+    </div>
