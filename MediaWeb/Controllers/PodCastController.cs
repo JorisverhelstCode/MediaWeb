@@ -7,6 +7,7 @@ using MediaWeb.Domain;
 using MediaWeb.Domain.Media;
 using MediaWeb.Models.Media.PodCast;
 using MediaWeb.Models.PodCast;
+using MediaWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,13 @@ namespace MediaWeb.Controllers
     {
         private readonly MediaDbContext _mediaDbContext;
         private readonly UserManager<MediaWebUser> _userManager;
+        private readonly IUserDbService _userDbService;
 
-        public PodCastController(MediaDbContext context, UserManager<MediaWebUser> userManager)
+        public PodCastController(MediaDbContext context, UserManager<MediaWebUser> userManager, IUserDbService dbService)
         {
             _mediaDbContext = context;
             _userManager = userManager;
+            _userDbService = dbService;
         }
 
         [HttpGet]
@@ -30,19 +33,17 @@ namespace MediaWeb.Controllers
         {
             PodCastIndexViewModel model = new PodCastIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userPodCasts = _mediaDbContext.UserPodCasts.Where(x => x.UserId == user.Id);
-            var PodCastJoin =
-                from podCast in _mediaDbContext.PodCasts
-                join userPodCast in userPodCasts on podCast.Id equals userPodCast.PodCastId into podcasts
-                select new { Id = podCast.Id, Title = podCast.Title };
             model.PodCasts = new List<PodCastIndexListViewModel>();
-            model.PodCasts.AddRange(PodCastJoin
-                .Select(podCast => new PodCastIndexListViewModel
+            var podCastsFromDb = await _userDbService.GetPodCastsForUserAsync(user.Id);
+            foreach (var podCast in podCastsFromDb)
+            {
+                model.PodCasts.Add(new PodCastIndexListViewModel
                 {
                     Id = podCast.Id,
                     Title = podCast.Title,
                     Type = "PodCast"
-                }));
+                });
+            }
             return View(model);
         }
 

@@ -7,6 +7,7 @@ using MediaWeb.Domain;
 using MediaWeb.Domain.Media;
 using MediaWeb.Models.Film;
 using MediaWeb.Models.Media.Film;
+using MediaWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,13 @@ namespace MediaWeb.Controllers
     {
         private readonly MediaDbContext _mediaDbContext;
         private readonly UserManager<MediaWebUser> _userManager;
+        private readonly IUserDbService _userDbService;
 
-        public FilmController(MediaDbContext context, UserManager<MediaWebUser> userManager)
+        public FilmController(MediaDbContext context, UserManager<MediaWebUser> userManager, IUserDbService dbService)
         {
             _mediaDbContext = context;
             _userManager = userManager;
+            _userDbService = dbService;
         }
 
         [HttpGet]
@@ -31,19 +34,17 @@ namespace MediaWeb.Controllers
         {
             FilmIndexViewModel model = new FilmIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userFilms = _mediaDbContext.UserFilms.Where(x => x.UserId == user.Id);
-            var FilmJoin =
-                from film in _mediaDbContext.Films
-                join userFilm in userFilms on film.Id equals userFilm.FilmId into films
-                select new { Id = film.Id, Title = film.Title };
             model.Films = new List<FilmIndexListViewModel>();
-            model.Films.AddRange(FilmJoin
-                .Select(film => new FilmIndexListViewModel
+            var filmsFromDb = await _userDbService.GetFilmsForUserAsync(user.Id);
+            foreach (var film in filmsFromDb)
+            {
+                model.Films.Add(new FilmIndexListViewModel
                 {
                     Id = film.Id,
                     Title = film.Title,
                     Type = "Film"
-                }));
+                });
+            }
             return View(model);
         }
 

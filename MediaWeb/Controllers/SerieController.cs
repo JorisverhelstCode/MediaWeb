@@ -6,6 +6,7 @@ using MediaWeb.Database;
 using MediaWeb.Domain;
 using MediaWeb.Domain.Media;
 using MediaWeb.Models.Media.Serie;
+using MediaWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,13 @@ namespace MediaWeb.Controllers
     {
         private readonly MediaDbContext _mediaDbContext;
         private readonly UserManager<MediaWebUser> _userManager;
+        private readonly IUserDbService _userDbService;
 
-        public SerieController(MediaDbContext context, UserManager<MediaWebUser> userManager)
+        public SerieController(MediaDbContext context, UserManager<MediaWebUser> userManager, IUserDbService dbService)
         {
             _mediaDbContext = context;
             _userManager = userManager;
+            _userDbService = dbService;
         }
 
         [HttpGet]
@@ -29,19 +32,17 @@ namespace MediaWeb.Controllers
         {
             SerieIndexViewModel model = new SerieIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userSeries = _mediaDbContext.UserSeries.Where(x => x.UserId == user.Id);
-            var SerieJoin =
-                from Serie in _mediaDbContext.Series
-                join userSerie in userSeries on Serie.Id equals userSerie.SerieId into films
-                select new { Id = Serie.Id, Title = Serie.Title };
             model.Series = new List<SerieIndexListViewModel>();
-            model.Series.AddRange(SerieJoin
-                .Select(serie => new SerieIndexListViewModel
+            var seriesFromDb = await _userDbService.GetSeriesForUserAsync(user.Id);
+            foreach (var serie in seriesFromDb)
+            {
+                model.Series.Add(new SerieIndexListViewModel
                 {
                     Id = serie.Id,
                     Title = serie.Title,
                     Type = "Serie"
-                }));
+                });
+            }
             return View(model);
         }
 

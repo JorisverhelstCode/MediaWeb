@@ -8,6 +8,7 @@ using MediaWeb.Domain.Media;
 using MediaWeb.Models.Film;
 using MediaWeb.Models.Media.Music;
 using MediaWeb.Models.Music;
+using MediaWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,13 @@ namespace MediaWeb.Controllers
     {
         private readonly MediaDbContext _mediaDbContext;
         private readonly UserManager<MediaWebUser> _userManager;
+        private readonly IUserDbService _userDbService;
 
-        public MusicController(MediaDbContext context, UserManager<MediaWebUser> userManager)
+        public MusicController(MediaDbContext context, UserManager<MediaWebUser> userManager, IUserDbService dbService)
         {
             _mediaDbContext = context;
             _userManager = userManager;
+            _userDbService = dbService;
         }
 
         [HttpGet]
@@ -31,19 +34,17 @@ namespace MediaWeb.Controllers
         {
             MusicIndexViewModel model = new MusicIndexViewModel();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userMusics = _mediaDbContext.UserMusicList.Where(x => x.UserId == user.Id);
-            var MusicJoin =
-                from music in _mediaDbContext.MusicList
-                join userMusic in userMusics on music.Id equals userMusic.MusicId into musics
-                select new { Id = music.Id, Title = music.Title };
             model.Music = new List<MusicIndexListViewModel>();
-            model.Music.AddRange(MusicJoin
-                .Select(music => new MusicIndexListViewModel
+            var musicFromDb = await _userDbService.GetMusicListForUserAsync(user.Id);
+            foreach (var music in musicFromDb)
+            {
+                model.Music.Add(new MusicIndexListViewModel
                 {
                     Id = music.Id,
                     Title = music.Title,
                     Type = "Music"
-                }));
+                });
+            }
             return View(model);
         }
 
