@@ -19,7 +19,7 @@
     }
     else
     {
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -34,13 +34,13 @@
                     <tr>
                         <td>@media.Title</td>
                         <td>
-                            <a asp-controller="PodCast" asp-action="Detail" asp-route-model="@media">Detail</a>
+                            <a asp-controller="PodCast" asp-action="Detail" asp-route-id="@media.Id">Detail</a>
                         </td>
                         <td>
-                            <a asp-controller="PodCast" asp-action="Edit" asp-route-model="@media">Edit</a>
+                            <a asp-controller="PodCast" asp-action="Edit" asp-route-id="@media.Id">Edit</a>
                         </td>
                         <td>
-                            <a asp-controller="PodCast" asp-action="Delete" asp-route-model="@media">Delete</a>
+                            <a asp-controller="PodCast" asp-action="Delete" asp-route-id="@media.Id">Delete</a>
                         </td>
                     </tr>
                 }
@@ -55,4 +55,9 @@
 
 <div>
     <a asp-controller="Podast" asp-action="Search">Zoek naar een al bestaande podcast op onze website</a>
+</div>
+
+
+<div class="align-bottom">
+    <a asp-controller="Media" asp-action="Index">Terug naar algemeen overzicht</a>
 </div>

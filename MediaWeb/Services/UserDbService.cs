@@ -22,13 +22,11 @@ namespace MediaWeb.Services
 
     public class UserDbService : IUserDbService
     {
-        private readonly UserManager<MediaWebUser> _userManager;
         private readonly MediaDbContext _mediaDbContext;
 
-        public UserDbService(MediaDbContext context, UserManager<MediaWebUser> userManager)
+        public UserDbService(MediaDbContext context)
         {
             _mediaDbContext = context;
-            _userManager = userManager;
         }
 
         public async Task<IEnumerable<Serie>> GetSeriesForUserAsync(string userID)

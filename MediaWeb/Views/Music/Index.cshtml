@@ -19,7 +19,7 @@
     }
     else
     {
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -34,13 +34,13 @@
                     <tr>
                         <td>@media.Title</td>
                         <td>
-                            <a asp-controller="Music" asp-action="Detail" asp-route-model="@media">Detail</a>
+                            <a asp-controller="Music" asp-action="Detail" asp-route-id="@media.Id">Detail</a>
                         </td>
                         <td>
-                            <a asp-controller="Music" asp-action="Edit" asp-route-model="@media">Edit</a>
+                            <a asp-controller="Music" asp-action="Edit" asp-route-id="@media.Id">Edit</a>
                         </td>
                         <td>
-                            <a asp-controller="Music" asp-action="Delete" asp-route-model="@media">Delete</a>
+                            <a asp-controller="Music" asp-action="Delete" asp-route-id="@media.Id">Delete</a>
                         </td>
                     </tr>
                 }

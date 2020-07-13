@@ -82,14 +82,14 @@ namespace MediaWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, SerieEditViewModel vm)
+        public async Task<IActionResult> Edit(SerieEditViewModel vm)
         {
             if (!TryValidateModel(vm))
             {
                 return View(vm);
             }
 
-            Serie domainSerie = await _mediaDbContext.Series.FindAsync(id);
+            Serie domainSerie = await _mediaDbContext.Series.FindAsync(vm.Id);
 
             domainSerie.Title = vm.Title;
             domainSerie.Episode = vm.Episode;
@@ -101,7 +101,7 @@ namespace MediaWeb.Controllers
 
             await _mediaDbContext.SaveChangesAsync();
 
-            return RedirectToAction("Detail", new { Id = id });
+            return RedirectToAction("Detail", new { Id = vm.Id });
         }
 
         [HttpGet]

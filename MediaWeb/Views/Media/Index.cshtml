@@ -18,7 +18,7 @@
                 Bekijk je collectie!
                 <br />
             </span>
-            <table>
+            <table class="table">
                 <thead>
                     <tr><th><a asp-controller="Film" asp-action="Index">Mijn films</a></th></tr>
                     <tr><th><a asp-controller="Music" asp-action="Index">Mijn muziek</a></th></tr>
@@ -35,7 +35,7 @@
             }
             else
             {
-                <table>
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -50,10 +50,10 @@
                             <tr>
                                 <td>@media.Title</td>
                                 <td>
-                                    <a asp-controller="Media" asp-action="Detail" asp-route-model="@media">Detail</a>
+                                    <a asp-controller="Media" asp-action="Detail" asp-route-media="@media">Detail</a>
                                 </td>
                                 <td>
-                                    <a asp-controller="Media" asp-action="Edit" asp-route-model="@media">Edit</a>
+                                    <a asp-controller="Media" asp-action="Edit" asp-route-media="@media">Edit</a>
                                 </td>
                                 <td>
                                     <a asp-controller="Media" asp-action="Delete" asp-route-model="@media">Delete</a>
@@ -69,8 +69,6 @@
             <a asp-controller="Media" asp-action="Create">Zoek naar een nieuw item</a>
         </div>
         <br />
-        @if (!User.IsInRole("Guest") && (Model.PlayLists.Count() != 0))
-        {
             <div>
                 <table>
                     <thead>
@@ -92,5 +90,4 @@
                     </tbody>
                 </table>
             </div>
-        }
     </div>
