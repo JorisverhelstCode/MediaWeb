@@ -1,19 +1,15 @@
-﻿@model MediaWeb.Models.Film.FilmDetailViewModel
+﻿@model MediaWeb.Models.Music.MusicDetailViewModel
 
-<h1>@Model.Title</h1>
+<partial name="_MediaDetailPartial" model="@Model">
 
-<div>
-    <bold>Link:</bold>
-    <a href="@Model.Url">@Model.Url</a>
-    <br />
-    <bold>Producer</bold>
-    <span>
-        @Model.Producer
-    </span>
-    <br />
-    <bold>Release date</bold>
-    <span>
-        @Model.Producer
-    </span>
-</div>
-
+    <div>
+        <bold>Artist</bold>
+        <span>
+            @Model.Artist
+        </span>
+        <br />
+        <bold>Genre</bold>
+        <span>
+            @Model.Genre
+        </span>
+    </div>
