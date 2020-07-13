@@ -24,10 +24,10 @@ namespace MediaWeb.Controllers
     public class MediaController : Controller
     {
         private readonly UserManager<MediaWebUser> _userManager;
-        private readonly UserDbService _userDbService;
+        private readonly IUserDbService _userDbService;
         private readonly MediaDbContext _mediaDbContext;
 
-        public MediaController(MediaDbContext context, UserManager<MediaWebUser> userManager, UserDbService dbService)
+        public MediaController(MediaDbContext context, UserManager<MediaWebUser> userManager, IUserDbService dbService)
         {
             _mediaDbContext = context;
             _userManager = userManager;

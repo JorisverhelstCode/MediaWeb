@@ -38,12 +38,6 @@ namespace MediaWeb
             services.AddDefaultIdentity<MediaWebUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MediaDbContext>();
             services.AddTransient<IUserDbService, UserDbService>();
-            ////services.AddMvc(options =>
-            ////{
-            ////    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            ////    options.Filters.Add(new AuthorizeFilter(policy));
-            ////}).AddXmlSerializerFormatters();
-            ////services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

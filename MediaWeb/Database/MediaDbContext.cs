@@ -19,6 +19,14 @@ namespace MediaWeb.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserFilm>()
+            .HasKey(c => new { c.UserId, c.FilmId });
+            modelBuilder.Entity<UserMusic>()
+           .HasKey(c => new { c.UserId, c.MusicId });
+            modelBuilder.Entity<UserPodCast>()
+           .HasKey(c => new { c.UserId, c.PodCastId });
+            modelBuilder.Entity<UserSerie>()
+           .HasKey(c => new { c.UserId, c.SerieId });
         }
 
         public DbSet<Film> Films { get; set; }
