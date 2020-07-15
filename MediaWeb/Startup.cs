@@ -72,5 +72,30 @@ namespace MediaWeb
                 endpoints.MapRazorPages();
             });
         }
+
+        private void CreateRolesAndAssignUsers(IServiceProvider serviceProvider)
+        {
+            CreateRoleIfNotExists(serviceProvider, "Admin");
+            CreateRoleIfNotExists(serviceProvider, "Mod");
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<MediaWebUser>>();
+
+            var joris = userManager.FindByEmailAsync("jorisverhelst@hotmail.com").Result;
+
+            if (!userManager.IsInRoleAsync(joris, "Admin").Result)
+            {
+                userManager.AddToRoleAsync(joris, "Admin").Wait();
+            }
+        }
+
+        private static void CreateRoleIfNotExists(IServiceProvider serviceProvider, string role)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (!roleManager.RoleExistsAsync(role).Result)
+            {
+                roleManager.CreateAsync(new IdentityRole(role)).Wait();
+            }
+        }
     }
 }
